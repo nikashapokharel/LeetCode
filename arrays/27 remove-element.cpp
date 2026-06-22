@@ -3,24 +3,51 @@
 using namespace std;
 
 
-/*Key idea: Set up 2 pointers.
-First one traverses the whole array while the second one points to elements that are not val. 
-Everytime an element is not val, we add that element to the index pointed by the second pointer and increment that pointer.
-Lastly, return the second pointer.*/
+/*Key idea: I go through each number in the array one by one (outer loop).
+For each number, I check the whole array again (inner loop) to count how many times it shows up.
+
+If I find that a number appears exactly 2 times, that means it's one of the repeated ones,
+so I add it to the result (making sure I don’t add the same number twice).*/
 
 class Solution {
 public:
-    int removeElement(vector<int>& nums, int val)
+    vector<int> getSneakyNumbers(vector<int>& nums)
     {
-       int k = 0;
-       for(int i = 0; i < nums.size(); i++)
-       {
-            if(nums[i] != val)
+        vector<int> result;
+        int check;
+
+        for(int i = 0; i < nums.size(); i++)
+        {
+            int count =0;
+            check = nums[i];
+
+            for (int j = 0; j < nums.size(); j++)
             {
-                nums[k]= nums[i];
-                k++;
+                if(check == nums[j])
+                {
+                    count++;
+                }   
             }
-       } 
-       return k;
+            if (count == 2)
+            {
+                bool already = false;
+                
+                for (int k = 0; k < result.size(); k++)
+                {
+                    if (result[k] == nums[i])
+                    {
+                        already = true;
+                        break;
+                    }
+                }
+
+                if (!already)
+                {
+                    result.push_back(nums[i]);
+                }
+            }
+
+        }
+        return result;
     }
 };
