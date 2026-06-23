@@ -3,32 +3,46 @@
 using namespace std;
 
 
-/*Key idea: Start filling the nums1 array from the end, comparing the last elements of nums1 and nums2, and 
-placing the larger one at the end of nums1. This way, we can avoid overwriting any elements in nums1 
-that we haven't processed yet.*/
+/*Key idea: I go through each number in the array one by one (outer loop).
+For each number, I check the whole array again (inner loop) to count how many times it shows up.
+If I find that a number appears exactly 2 times, that means it's one of the repeated ones,
+so I add it to the result (making sure I don't add the same number twice).*/
 
 class Solution {
 public:
-    
-void merge(vector<int>& nums1, int m, vector<int>& nums2, int n)
+    vector<int> getSneakyNumbers(vector<int>& nums)
     {
-        int i = m - 1;
-        int j = n - 1;
-        int k = m + n - 1;
-
-        while(j >= 0)
+        vector<int> result;
+        int check;
+        for(int i = 0; i < nums.size(); i++)
         {
-            if(i >=0 && nums1[i] > nums2[j])
+            int count =0;
+            check = nums[i];
+            for (int j = 0; j < nums.size(); j++)
             {
-                nums1[k]= nums1[i];
-                i--;
+                if(check == nums[j])
+                {
+                    count++;
+                }   
             }
-            else
+            if (count == 2)
             {
-                nums1[k]= nums2[j];
-                j--;
+                bool already = false;
+                
+                for (int k = 0; k < result.size(); k++)
+                {
+                    if (result[k] == nums[i])
+                    {
+                        already = true;
+                        break;
+                    }
+                }
+                if (!already)
+                {
+                    result.push_back(nums[i]);
+                }
             }
-            k--;
         }
+        return result;
     }
 };
