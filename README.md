@@ -68,5 +68,7 @@ Problem List:
 - 3701. Compute Alternating Sum
 - 3712. Sum of Elements With Frequency Divisible by K
 - 3925. Concatenate Array With Reverse
+
+Goal:
 - Master core data structures and algorithms
 
